@@ -1,0 +1,47 @@
+<style>
+    .navbar-custom {
+
+        background-color: #0057ff;
+
+    }
+    .navbar-custom .navbar-brand,
+
+    .navbar-custom .navbar-text {
+
+        color: #ffffff;
+
+    }
+
+</style>
+<nav xmlns:th="http://www.thymeleaf.org"
+     class="navbar navbar-custom">
+    <div class="container-fluid">
+        <div th:if="${#request.userPrincipal != null}">
+        <span class="navbar-text font-weight-bold" style="color: white"
+              th:text="${userThis.getEmail()}">
+        </span>
+
+            <span class="navbar-text" style="color: white"
+                  th:text="' with roles: ' + ${#strings.arrayJoin(userThis.getRoles(), ' ')}">
+        </span>
+        </div>
+
+        <div th:if="${#request.userPrincipal == null}">
+        <span class="navbar-text font-weight-bold" style="color: white"
+              th:text="'Привет Гость.'">
+        </span>
+
+            <span class="navbar-text" style="color: white"
+                  th:text="'пожалуйста авторизуйся'">
+        </span>
+        </div>
+        <div>
+            <ul class="navbar-nav navbar-custom">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link btn btn-outline-light me-2" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
+                    <a class="nav-link" th:if="${#request.userPrincipal == null}" th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
